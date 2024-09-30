@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search page</title>
+</head>
+<body>
+
+<!-- Форма для поиска книги -->
+<form th:action="@{/books/search}" method="get">
+    <input type="text" name="query" placeholder="Enter the title or author of the book"/>
+    <button type="submit">Search</button>
+</form>
+
+<br/>
+
+<!-- Отображение найденной книги -->
+<div th:if="${foundBook.isPresent()}">
+    <h3>Found book:</h3>
+    <a th:href="@{/books/{id}(id=${foundBook.get().getId()})}"
+       th:text="${foundBook.get().getTitle() + ', ' + foundBook.get().getAuthor() + ', ' + foundBook.get().getYear()}">book</a>
+</div>
+
+<div th:if="${!foundBook.isPresent()}">
+    <p>Book didn't found.</p>
+</div>
+
+</body>
+</html>
